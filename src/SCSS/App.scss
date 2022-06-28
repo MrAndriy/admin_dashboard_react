@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Nunito', sans-serif;
+  user-select: none;
+  overflow-x: hidden;
+  overflow-x: hidden;
+}
