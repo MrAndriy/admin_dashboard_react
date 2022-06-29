@@ -12,37 +12,50 @@ import PsychologyOutlinedIcon from '@mui/icons-material/PsychologyOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { Link } from 'react-router-dom';
 
 const SideBar = () => {
   return (
     <div className="sidebar">
       <div className="top">
-        <span className="logo">Logo WebSite</span>
+        <Link to={'/'}>
+          <span className="logo">Logo WebSite</span>
+        </Link>
       </div>
       <div className="center">
         <ul>
           <p className="title">Main</p>
-          <li>
-            <DashboardIcon className="icon" />
-            <span>DashBoard</span>
-          </li>
+          <Link to={'/'}>
+            <li>
+              <DashboardIcon className="icon" />
+              <span>DashBoard</span>
+            </li>
+          </Link>
           <p className="title">Lists</p>
-          <li>
-            <PersonOutlineOutlinedIcon className="icon" />
-            <span>Users</span>
-          </li>
-          <li>
-            <StorefrontOutlinedIcon className="icon" />
-            <span>Products</span>
-          </li>
-          <li>
-            <CreditCardOutlinedIcon className="icon" />
-            <span>Orders</span>
-          </li>
-          <li>
-            <LocalShippingOutlinedIcon className="icon" />
-            <span>Delivery</span>
-          </li>
+          <Link to={'/users'}>
+            <li>
+              <PersonOutlineOutlinedIcon className="icon" />
+              <span>Users</span>
+            </li>
+          </Link>
+          <Link to={'/products'}>
+            <li>
+              <StorefrontOutlinedIcon className="icon" />
+              <span>Products</span>
+            </li>
+          </Link>
+          <Link to={'/orders'}>
+            <li>
+              <CreditCardOutlinedIcon className="icon" />
+              <span>Orders</span>
+            </li>
+          </Link>
+          <Link to={'/delivery'}>
+            <li>
+              <LocalShippingOutlinedIcon className="icon" />
+              <span>Delivery</span>
+            </li>
+          </Link>
           <p className="title">Useful</p>
           <li>
             <QueryStatsOutlinedIcon className="icon" />
