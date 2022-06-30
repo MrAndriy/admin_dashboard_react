@@ -154,6 +154,7 @@ const DataTable = () => {
   return (
     <div className="datatable">
       <DataGrid
+        className="dataGrid"
         rows={rows}
         columns={columns.concat(actionColumn)}
         pageSize={9}
