@@ -10,7 +10,7 @@
     "client:install": "npm install --prefix client",
     "admin:install": "npm install --prefix admin",
     "server:install": "npm install --prefix server",
-    "all:install": "npm install --prefix client && npm install --prefix admin && npm install --prefix server"
+    "all:install": "npm install && npm isntall --prefix client && npm install --prefix admin && npm install --prefix server"
   },
   "repository": {
     "type": "git",
