@@ -11,6 +11,7 @@ import { AuthContext } from './contex/AuthContext';
 //styles
 import './SCSS/App.scss';
 import './SCSS/dark.scss';
+import { hotelColumns, userColumns } from './datatablesource';
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -42,7 +43,7 @@ function App() {
                 index
                 element={
                   <ProtectedRoute>
-                    <List />
+                    <List columns={userColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -54,21 +55,47 @@ function App() {
                   </ProtectedRoute>
                 }
               />
-              <Route
+              {/* <Route
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New title="Add New User" />
+                    <New inputs={userInputs} title="Add New User" />
                   </ProtectedRoute>
                 }
-              />
+              /> */}
             </Route>
-            <Route path="products">
+            {/* <Route path="hotels">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <List />
+                    <List columns={hotelColumns} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path=":hotelId"
+                element={
+                  <ProtectedRoute>
+                    <Single />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    <New title="Add New Product" />
+                  </ProtectedRoute>
+                }
+              />
+            </Route> */}
+            {/* <Route path="rooms">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <List columns={roomColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -84,11 +111,11 @@ function App() {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New title="Add New Product" />
+                    <NewRoom />
                   </ProtectedRoute>
                 }
               />
-            </Route>
+            </Route> */}
           </Route>
         </Routes>
       </BrowserRouter>
