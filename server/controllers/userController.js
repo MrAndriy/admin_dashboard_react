@@ -42,12 +42,18 @@ class UserController {
           )
         );
       }
+      //check if user want to be admin
+      if (role === 'admin' || role === 'ADMIN') {
+        return next(ApiError.badRequest('You can not be admin'));
+      }
       //create user
-      const user = await User.create({
-        email,
+      const user = new User({
+        ...req.body,
         password: hashPassword(password),
-        fullname,
+        role: 'USER',
       });
+      await user.save();
+
       const token = generateJwt(user.id, user.email, user.role, user.fullname);
       return res.json({ message: 'User created successfully', token });
     } catch (e) {
@@ -82,7 +88,7 @@ class UserController {
       }
       const token = generateJwt(user.id, user.email, user.role, user.fullname);
       //hide password and status isAdmin
-      const { password: _, isAdmin: __, ...userData } = user.toObject();
+      const { password: _, __v, role, ...userData } = user.toObject();
 
       //return token in cookie and user data in response
       return res
@@ -93,7 +99,8 @@ class UserController {
         .status(200)
         .json({
           message: 'User logged in successfully',
-          user: userData,
+          details: { ...userData },
+          role,
         });
     } catch (e) {
       return next(ApiError.internal(e.message));

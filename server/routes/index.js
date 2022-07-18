@@ -4,7 +4,7 @@ const userRouter = require('./userRouter');
 const hotelRouter = require('./hotelRouter');
 const roomRouter = require('./roomRouter');
 
-router.use('/user', userRouter);
+router.use('/users', userRouter);
 router.use('/hotels', hotelRouter);
 router.use('/rooms', roomRouter);
 

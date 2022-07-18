@@ -44,16 +44,16 @@ const SideBar = () => {
               <span>Users</span>
             </li>
           </Link>
-          <Link to={'/products'}>
+          <Link to={'/hotels'}>
             <li>
               <StorefrontOutlinedIcon className="icon" />
-              <span>Products</span>
+              <span>Hotels</span>
             </li>
           </Link>
-          <Link to={'/orders'}>
+          <Link to={'/rooms'}>
             <li>
               <CreditCardOutlinedIcon className="icon" />
-              <span>Orders</span>
+              <span>Rooms</span>
             </li>
           </Link>
           <Link to={'/delivery'}>

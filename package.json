@@ -4,7 +4,7 @@
   "description": "Booking App",
   "scripts": {
     "client": "npm run start --prefix client",
-    "server": "npm run start --prefix server",
+    "server": "npm run dev --prefix server",
     "admin": "npm run start --prefix admin",
     "dev": " concurrently \"npm run client\" \"npm run server\" \"npm run admin\"",
     "client:install": "npm install --prefix client",
