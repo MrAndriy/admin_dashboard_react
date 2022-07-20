@@ -1,5 +1,7 @@
+@import 'config';
+
 .App.dark {
-  background-color: #1a1a1a;
+  background-color: #181a1e;
   color: #fff;
 
   .chartGrid {
@@ -35,7 +37,7 @@
       ul {
         li {
           &:hover {
-            // background-color: #333;
+            background-color: #333;
           }
         }
       }
@@ -55,3 +57,12 @@
     }
   }
 }
+
+// .App.dark {
+//   $color-background: #181a1e;
+//   $color-white: #202528;
+//   $color-dark: #edeffd;
+//   $color-dark-variant: #a3bdcc;
+//   $color-light: rgba(0, 0, 0, 0.4);
+//   $box-shadow: 0 2rem 3rem $color-light;
+// }
