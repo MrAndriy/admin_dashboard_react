@@ -17,6 +17,8 @@ app.use(cookieParser()); //cookie parser
 app.use(cors());
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(fileUpload({}));
+
+//routing
 app.use('/api', router);
 
 // errors, last MiddleWare

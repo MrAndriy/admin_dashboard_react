@@ -132,7 +132,7 @@ class UserController {
       if (users.length === 0) {
         return next(ApiError.notFound('User not found'));
       }
-      return res.status(200).json({ users });
+      return res.status(200).json(users);
     } catch (e) {
       return next(ApiError.internal(e.message));
     }
@@ -146,10 +146,7 @@ class UserController {
       if (!user) {
         return next(ApiError.NotFound('User not found'));
       }
-      return res.status(200).json({
-        message: 'User found',
-        user,
-      });
+      return res.status(200).json(user);
     } catch (e) {
       return next(ApiError.internal(e.message));
     }
