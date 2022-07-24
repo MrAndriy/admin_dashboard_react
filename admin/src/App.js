@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Login from './pages/login/Login';
-import Single from './pages/single/Single';
-import New from './pages/new/New';
+import Login from './components/login/Login';
+import Single from './components/single/Single';
+import New from './components/new/New';
 import { DarkModeContext } from './contex/darkModeContext';
 import { AuthContext } from './contex/AuthContext';
 
@@ -13,7 +13,10 @@ import Layout from './components/Layout/Layout';
 import NotFound from './components/NotFound/NotFound';
 import DashBoard from './components/DashBoard/DashBoard';
 import Datatable from './components/datatable/DataTable';
-import { userColumns } from './datatablesource';
+import { hotelColumns, roomColumns, userColumns } from './datatablesource';
+import NewHotel from './components/NewHotel/NewHotel';
+import NewRoom from './components/NewRoom/NewRoom';
+import Chart from './components/chart/Chart';
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -35,20 +38,20 @@ function App() {
             <Route index element={<DashBoard />} />
             <Route path="users">
               <Route index element={<Datatable columns={userColumns} />} />
-              <Route path=":userId" element={<Single />} />
+              <Route path="find/:userId" element={<Single />} />
               <Route path="new" element={<New title="Add New User" />} />
             </Route>
             <Route path="hotels">
-              <Route index element={<p>hotels</p>} />
-              <Route path=":hotelId" element={<Single />} />
-              <Route path="new" element={<New title="Add New Hotel" />} />
+              <Route index element={<Datatable columns={hotelColumns} />} />
+              <Route path="find/:hotelId" element={<Single />} />
+              <Route path="new" element={<NewHotel />} />
             </Route>
             <Route path="rooms">
-              <Route index element={<p>rooms</p>} />
-              <Route path=":roomId" element={<Single />} />
-              <Route path="new" element={<New title="Add New Room" />} />
+              <Route index element={<Datatable columns={roomColumns} />} />
+              <Route path="find/:roomId" element={<Single />} />
+              <Route path="new" element={<NewRoom />} />
             </Route>
-            <Route path="analytics" element={<p>analitics</p>} />
+            <Route path="analytics" element={<Chart aspect={2/1} title='Last 6 months' />} />
             <Route path="messages" element={<p>messages</p>} />
             <Route path="logout" element={<p>logout</p>} />
             <Route path="*" element={<NotFound />} />

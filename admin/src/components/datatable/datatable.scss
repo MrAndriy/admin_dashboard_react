@@ -1,57 +1,94 @@
+@import '../../SCSS/config.scss';
+
 .datatable {
+  display: flex;
+  flex-direction: column;
   height: 600px;
+  padding: 20px;
+
+  .datatableTitle {
+    width: 100%;
+    font-size: 24px;
+    color: $color-dark;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .link {
+      text-decoration: none;
+      color: $color-success;
+      font-size: 16px;
+      font-weight: 400;
+      border: 1px solid $color-success;
+      padding: 5px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  }
+
+  .datagrid {
+    background: $color-white;
+    box-shadow: $box-shadow;
+    border-radius: $border-radius-2;
+
+    &:hover {
+      box-shadow: none;
+    }
+  }
 
   .cellWithImg {
     display: flex;
     align-items: center;
 
     .cellImg {
-      height: 32px;
       width: 32px;
+      height: 32px;
       border-radius: 50%;
       object-fit: cover;
-      margin-right: 15px;
+      margin-right: 20px;
     }
   }
 
   .cellWithStatus {
-    display: flex;
-    justify-content: center;
     padding: 5px;
     border-radius: 5px;
 
-    &.online {
-      background-color: rgba(0, 128, 0, 0.1);
+    &.active {
+      background-color: rgba(0, 128, 0, 0.05);
       color: green;
     }
-
-    &.offline {
-      background-color: rgba(255, 0, 0, 0.203);
-      color: red;
+    &.pending {
+      background-color: rgba(255, 217, 0, 0.05);
+      color: goldenrod;
+    }
+    &.passive {
+      background-color: rgba(255, 0, 0, 0.05);
+      color: crimson;
     }
   }
 
   .cellAction {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 15px;
 
     .viewButton {
       padding: 2px 5px;
       border-radius: 5px;
       color: darkblue;
-      border: 1px solid rgba(0, 0, 139, 0.506);
+      border: 1px solid rgba(0, 0, 139, 0.596);
       cursor: pointer;
+      margin: 0 5px;
     }
 
     .deleteButton {
       padding: 2px 5px;
       border-radius: 5px;
       color: crimson;
-      border: 1px solid rgba(220, 20, 60, 0.503);
+      border: 1px solid rgba(220, 20, 60, 0.6);
       cursor: pointer;
+      margin: 0 5px;
     }
   }
 }

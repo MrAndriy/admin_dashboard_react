@@ -11,7 +11,7 @@ const RightSideBar = () => {
   };
 
   return (
-    <div className="right">
+    <div className="right__side-bar">
       <div className="top">
         <button id="menu-btn">
           <span className="material-icons-sharp">menu</span>

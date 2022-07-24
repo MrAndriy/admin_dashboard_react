@@ -32,7 +32,7 @@ html {
 body {
   width: 100vw;
   height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: Poppins, sans-serif;
   font-size: 0.88rem;
   background: $color-background;
   user-select: none;
@@ -41,7 +41,7 @@ body {
 }
 
 a {
-  color: var(--color-dark);
+  color: $color-dark;
 }
 
 img {
@@ -82,31 +82,31 @@ small {
 }
 
 .text-muted {
-  color: var(--color-info-dark);
+  color: $color-info-dark;
 }
 
 p {
-  color: var(--color-dark-variant);
+  color: $color-dark-variant;
 }
 
 b {
-  color: var(--color-dark);
+  color: $color-dark;
 }
 
 .primary {
-  color: var(--color-primary);
+  color: $color-primary;
 }
 
 .danger {
-  color: var(--color-danger);
+  color: $color-danger;
 }
 
 .success {
-  color: var(--color-success);
+  color: $color-success;
 }
 
 .warning {
-  color: var(--color-warning);
+  color: $color-warning;
 }
 
 .container {

@@ -1,8 +1,22 @@
 import './single.scss';
-import Chart from '../../components/chart/Chart';
-import List from '../../components/table/Table';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import Chart from '../chart/Chart';
+import List from '../table/Table';
+import { $host } from '../../http';
 
 const Single = () => {
+  const location = useLocation();
+  const path = location.pathname;
+
+  const [person, setPerson] = useState({});
+
+  useEffect(() => {
+    $host.get(path).then((res) => {
+      setPerson(res.data).catch((err) => console.log(err));
+    });
+  }, [location, path]);
+
   return (
     <div className="single">
       <div className="singleContainer">
@@ -15,30 +29,28 @@ const Single = () => {
               <span>Information</span>
             </div>
             <div className="item">
-              <img
-                src="https://www.clipartmax.com/png/middle/258-2582267_circled-user-male-skin-type-1-2-icon-male-user-icon.png"
-                alt="avatar"
-                className="itemImg"
-              />
+              <img src={person.img} alt="avatar" className="itemImg" />
               <div className="details">
-                <h1 className="itemTitle">Jane Doe</h1>
+                <h1 className="itemTitle">{person.fullname}</h1>
                 <div className="detailItem">
                   <span className="itemKey">Email:</span>
-                  <span className="itemValue">test@gmail.com </span>
+                  <span className="itemValue">{person.email}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Phone:</span>
-                  <span className="itemValue">+123-45-67-890 </span>
+                  <span className="itemValue">{person.phone}</span>
                 </div>
                 <div className="detailItem">
-                  <span className="itemKey">Address:</span>
-                  <span className="itemValue">
-                    Elton St. 132 Garden Yd. NewYork
-                  </span>
+                  <span className="itemKey">City:</span>
+                  <span className="itemValue">{person.city}</span>
                 </div>
                 <div className="detailItem">
                   <span className="itemKey">Country:</span>
-                  <span className="itemValue">USA</span>
+                  <span className="itemValue">{person.country}</span>
+                </div>
+                <div className="detailItem">
+                  <span className="itemKey">Role:</span>
+                  <span className="itemValue">{person.role}</span>
                 </div>
               </div>
             </div>
@@ -49,7 +61,7 @@ const Single = () => {
         </div>
         <div className="bottom">
           <h1 className="title">Last Transactions</h1>
-          <List />
+          <p className="description">No information yet</p>
         </div>
       </div>
     </div>

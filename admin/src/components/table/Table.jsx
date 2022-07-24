@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 const List = () => {
   const [rows, setRows] = useState([
-    { name: 'John Smith', status: 'Employed' },
+    { id: 1, name: 'John Smith', status: 'Employed' },
   ]);
 
   return (

@@ -1,5 +1,5 @@
 import './list.scss';
-import DataTable from '../../components/datatable/DataTable';
+import DataTable from '../datatable/DataTable';
 
 const List = ({ columns }) => {
   return (

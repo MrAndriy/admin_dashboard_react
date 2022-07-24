@@ -12,7 +12,7 @@ export const userColumns = [
             src={params.row.img || 'https://i.ibb.co/MBtjqXQ/no-avatar.gif'}
             alt="avatar"
           />
-          {params.row.username}
+          {params.row.fullname}
         </div>
       );
     },
@@ -26,17 +26,17 @@ export const userColumns = [
   {
     field: 'country',
     headerName: 'Country',
-    width: 100,
+    width: 150,
   },
   {
     field: 'city',
     headerName: 'City',
-    width: 100,
+    width: 150,
   },
   {
     field: 'phone',
     headerName: 'Phone',
-    width: 100,
+    width: 150,
   },
 ];
 
