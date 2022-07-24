@@ -1,6 +1,4 @@
 import './new.scss';
-import SideBar from '../../components/sidebar/SideBar';
-import NavBar from '../../components/navbar/NavBar';
 import DriveFolderUploadOutlinedIcon from '@mui/icons-material/DriveFolderUploadOutlined';
 import { useState } from 'react';
 
@@ -9,10 +7,7 @@ const New = ({ title }) => {
 
   return (
     <div className="new">
-      <SideBar />
-
       <div className="newContainer">
-        <NavBar />
         <div className="top">
           <h1>{title}</h1>
         </div>

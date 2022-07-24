@@ -12,6 +12,8 @@ import './SCSS/App.scss';
 import Layout from './components/Layout/Layout';
 import NotFound from './components/NotFound/NotFound';
 import DashBoard from './components/DashBoard/DashBoard';
+import Datatable from './components/datatable/DataTable';
+import { userColumns } from './datatablesource';
 
 function App() {
   const { darkMode } = useContext(DarkModeContext);
@@ -32,7 +34,7 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<DashBoard />} />
             <Route path="users">
-              <Route index element={<p>users</p>} />
+              <Route index element={<Datatable columns={userColumns} />} />
               <Route path=":userId" element={<Single />} />
               <Route path="new" element={<New title="Add New User" />} />
             </Route>

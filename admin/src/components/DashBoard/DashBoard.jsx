@@ -1,11 +1,12 @@
 import Chart from '../chart/Chart';
 import Insights from '../Insights/Insights';
+import Featured from '../featured/Featured';
 
 const DashBoard = () => {
   return (
     <>
       <Insights />
-      <Chart title={'Last 6 months'}/>
+      <Chart aspect={3 / 1} title="Last 6 Months" />
     </>
   );
 };

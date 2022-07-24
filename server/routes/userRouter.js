@@ -48,18 +48,28 @@ router.post(
 router.get('/logout', userController.logout);
 
 //get all users
-router.get('/', authMiddleware, checkRole('ADMIN'), userController.getAllUsers);
+router.get('/',
+//  authMiddleware, checkRole('ADMIN'),
+  userController.getAllUsers);
 
 //get user by id
-router.get('/find/:id', authMiddleware, userController.getUserById);
+router.get('/find/:id',
+//  authMiddleware,
+  userController.getUserById);
 
 //update user by id
-router.put('/:id', authMiddleware, userController.updateUser);
+router.put('/:id',
+//  authMiddleware,
+  userController.updateUser);
 
 // //delete user by id
-router.delete('/:id', authMiddleware, userController.deleteUserById);
+router.delete('/:id',
+//  authMiddleware,
+  userController.deleteUserById);
 
 // //delete all users
-router.delete('/', checkRole('ADMIN'), userController.deleteAllUsers);
+router.delete('/',
+//  checkRole('ADMIN'),
+  userController.deleteAllUsers);
 
 module.exports = router;

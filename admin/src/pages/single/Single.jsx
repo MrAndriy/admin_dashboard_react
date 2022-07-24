@@ -1,15 +1,11 @@
 import './single.scss';
-import SideBar from '../../components/sidebar/SideBar';
-import NavBar from '../../components/navbar/NavBar';
 import Chart from '../../components/chart/Chart';
 import List from '../../components/table/Table';
 
 const Single = () => {
   return (
     <div className="single">
-      <SideBar />
       <div className="singleContainer">
-        <NavBar />
         <div className="top">
           <div className="left">
             <div className="editButton">

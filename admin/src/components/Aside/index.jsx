@@ -31,7 +31,7 @@ const Aside = () => {
           <h3>Hotels</h3>
         </NavLink>
         <NavLink to={'/rooms'}>
-          <span class="material-icons-sharp">living</span> <h3>Rooms</h3>
+          <span className="material-icons-sharp">living</span> <h3>Rooms</h3>
         </NavLink>
         <NavLink to={'/analytics'}>
           <span className="material-icons-sharp">insights</span>

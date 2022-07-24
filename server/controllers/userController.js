@@ -127,18 +127,12 @@ class UserController {
   //get all users
   async getAllUsers(req, res, next) {
     try {
-      const users = await User.find({});
+      const users = await User.find();
       //check if users is empty
       if (users.length === 0) {
         return next(ApiError.notFound('User not found'));
       }
-      return res.status(200).json({
-        //count how much users in db and send it to frontend
-        message: `${users.length}  ${
-          users.length == 1 ? 'user' : 'users'
-        } found`,
-        users,
-      });
+      return res.status(200).json({ users });
     } catch (e) {
       return next(ApiError.internal(e.message));
     }

@@ -1,4 +1,5 @@
 import './table.scss';
+import { useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,51 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 const List = () => {
-  const rows = [
-    {
-      id: 112132,
-      product: 'Acer Nitro 5',
-      img: 'https://m.media-amazon.com/images/I/71CHxshl1lL._AC_UY218_.jpg',
-      customer: 'John Smith',
-      date: '1 march',
-      amount: 785,
-      method: 'Cash on Delivery',
-      status: 'Approved',
-    },
-    {
-      id: 553265,
-      product: 'Playstation 5',
-      img:
-        'https://m.media-amazon.com/images/I/31g7kdk9zoL._AC_SX296_SY426_FMwebp_QL65_.jpg',
-      customer: 'Michael Doe',
-      date: '1 march',
-      amount: 900,
-      method: 'Online Paymment',
-      status: 'Pending',
-    },
-    {
-      id: 984023,
-      product: 'Razer Blade 15',
-      img:
-        'https://m.media-amazon.com/images/I/61-ODJrgv6L._AC_SX296_SY426_FMwebp_QL65_.jpg',
-      customer: 'Jane Smith',
-      date: '1 march',
-      amount: 950,
-      method: 'Online Paymment',
-      status: 'Approved',
-    },
-    {
-      id: 126534,
-      product: 'ASUS ROG STRIX',
-      img:
-        'https://m.media-amazon.com/images/I/71RK6+rx-xL._AC_SX296_SY426_FMwebp_QL65_.jpg',
-      customer: 'Jane Smith',
-      date: '1 march',
-      amount: 950,
-      method: 'Online Paymment',
-      status: 'Approved',
-    },
-  ];
+  const [rows, setRows] = useState([
+    { name: 'John Smith', status: 'Employed' },
+  ]);
 
   return (
     <TableContainer component={Paper} className="table">
