@@ -13,7 +13,7 @@ class HotelController {
           .json({ message: 'Hotel with this name already exists' });
       }
       const hotel = await Hotel.create(req.body);
-      res.send(hotel);
+      res.json(hotel);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -28,13 +28,7 @@ class HotelController {
           message: 'No hotels found',
         });
       }
-      return res.status(200).json({
-        //count how much hotels in db and send it to frontend
-        message: `${hotels.length}  ${
-          hotels.length == 1 ? 'hotel' : 'hotels'
-        } found`,
-        hotels,
-      });
+      return res.status(200).json(hotels);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -51,10 +45,7 @@ class HotelController {
           message: `Hotel with id ${id} not found`,
         });
       }
-      return res.status(200).json({
-        message: 'Hotel found',
-        hotel,
-      });
+      return res.status(200).json(hotel);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -87,9 +78,7 @@ class HotelController {
       const updatedHotel = await Hotel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
-      res
-        .status(200)
-        .json({ message: 'Hotel updated successfully', updatedHotel });
+      res.status(200).json(updatedHotel);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -105,7 +94,7 @@ class HotelController {
           message: 'Hotel not found',
         });
       }
-      res.status(200).json({ message: 'Hotel deleted successfully', hotel });
+      res.status(200).json(hotel);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -115,12 +104,7 @@ class HotelController {
   async deleteHotels(req, res, next) {
     try {
       const hotels = await Hotel.deleteMany();
-      return res.status(200).json({
-        message: `${hotels.length} ${
-          hotels.length == 1 ? 'hotel' : 'hotels'
-        } deleted successfully`,
-        hotels,
-      });
+      return res.status(200).json(hotels);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }
@@ -136,7 +120,7 @@ class HotelController {
         })
       );
 
-      return res.status(200).json({ list });
+      return res.status(200).json(list);
     } catch (e) {
       return res.status(500).json({ message: e.message });
     }

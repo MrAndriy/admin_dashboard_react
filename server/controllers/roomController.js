@@ -38,10 +38,7 @@ class RoomController {
       await Hotel.findByIdAndUpdate(hotelId, {
         $push: { rooms: savedRoom._id },
       });
-      return res.status(201).json({
-        message: 'Room created',
-        room: savedRoom,
-      });
+      return res.status(201).json(savedRoom);
     } catch (error) {
       next(error.message);
     }
@@ -57,10 +54,7 @@ class RoomController {
           message: 'Rooms not found',
         });
       }
-      res.status(200).json({
-        message: `${rooms.length} rooms found`,
-        rooms: rooms,
-      });
+      res.status(200).json(rooms);
     } catch (error) {
       next(error);
     }
@@ -77,10 +71,7 @@ class RoomController {
           message: 'Room not found',
         });
       }
-      res.status(200).json({
-        message: 'Room found',
-        room: room,
-      });
+      res.status(200).json(room);
     } catch (error) {
       next(error);
     }
@@ -143,10 +134,7 @@ class RoomController {
       await Hotel.findByIdAndUpdate(hotel, {
         $pull: { rooms: roomId },
       });
-      res.status(200).json({
-        message: 'Room deleted',
-        room: deletedRoom,
-      });
+      res.status(200).json(deletedRoom);
     } catch (error) {
       next(error);
     }

@@ -8,7 +8,9 @@ const checkRoleMiddleware = require('../middleware/checkRoleMiddleware');
 //routes
 
 //create hotel
-router.post('/', checkRoleMiddleware('ADMIN'), hotelController.creteHotel);
+router.post('/',
+//  checkRoleMiddleware('ADMIN'),
+  hotelController.creteHotel);
 
 //get hotel by id
 router.get('/find/:id', hotelController.getHotel);
@@ -17,7 +19,9 @@ router.get('/find/:id', hotelController.getHotel);
 router.get('/', hotelController.getHotels);
 
 //update hotel by id
-router.put('/:id', checkRoleMiddleware('ADMIN'), hotelController.updateHotel);
+router.put('/:id',
+//  checkRoleMiddleware('ADMIN'),
+  hotelController.updateHotel);
 
 //delete hotel by id
 router.delete(

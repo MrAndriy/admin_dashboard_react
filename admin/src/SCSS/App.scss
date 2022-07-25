@@ -1,3 +1,14 @@
+@import 'config'; //root colors
+
+.dark-theme-variables {
+  $color-background: #181a1e;
+  $color-white: #202528;
+  $color-dark: #edeffd;
+  $color-dark-variant: #a3bdcc;
+  $color-light: rgba(0, 0, 0, 0.4);
+  $box-shadow: 0 2rem 3rem $color-light;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +21,7 @@
 }
 
 html {
+  font-size: 14px;
   scroll-behavior: smooth;
 }
 
@@ -18,8 +30,89 @@ html {
 }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  width: 100vw;
+  height: 100vh;
+  font-family: Poppins, sans-serif;
+  font-size: 0.88rem;
+  background: $color-background;
   user-select: none;
   overflow-x: hidden;
-  overflow-x: hidden;
+  color: $color-dark;
+}
+
+a {
+  color: $color-dark;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 0.87rem;
+}
+
+h4 {
+  font-size: 0.8rem;
+}
+
+h5 {
+  font-size: 0.77rem;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
+.profile-photo {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.text-muted {
+  color: $color-info-dark;
+}
+
+p {
+  color: $color-dark-variant;
+}
+
+b {
+  color: $color-dark;
+}
+
+.primary {
+  color: $color-primary;
+}
+
+.danger {
+  color: $color-danger;
+}
+
+.success {
+  color: $color-success;
+}
+
+.warning {
+  color: $color-warning;
+}
+
+.container {
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  gap: 1.8rem;
+  grid-template-columns: 14rem auto 23rem;
 }
