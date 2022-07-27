@@ -1,4 +1,4 @@
-                                                                              {
+{
   "name": "admin_dashboard_react",
   "version": "1.0.0",
   "description": "Booking App",
@@ -30,5 +30,8 @@
   "homepage": "https://github.com/MrAndriy/admin_dashboard_react#readme",
   "devDependencies": {
     "concurrently": "^7.2.2"
+  },
+  "dependencies": {
+    "nodemailer": "^6.7.7"
   }
 }
