@@ -1,15 +1,14 @@
+require('dotenv').config();
 const express = require('express');
-const config = require('config');
 const mongoose = require('mongoose');
 const router = require('./routes/index');
 const fileUpload = require('express-fileupload');
 const path = require('path');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-
 const errorHandler = require('./middleware/ErrorHandlingMiddleware');
 
-const PORT = config.get('port') || 3002;
+const PORT = process.env.PORT || 3002;
 
 const app = express();
 app.use(express.json());
@@ -28,7 +27,7 @@ const start = async () => {
   try {
     console.log(`connection to MongoDB`);
     mongoose
-      .connect(config.get('mongoUrl'), {})
+      .connect(process.env.DB_URL, {})
       .then(() => console.log(`conection succes to mongoDB`))
       .catch((e) => console.log(`cannot connect to mongoDB ${e}`));
     app.listen(PORT, () => console.log(`server start on port ${PORT}`));

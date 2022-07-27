@@ -1,140 +1,90 @@
 const ApiError = require('../error/ApiError.js');
 const { validationResult } = require('express-validator');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const config = require('config');
-const User = require('../models/User');
-
-//function to generate token
-const generateJwt = (id, email, role, fullname) => {
-  const sekret_Key = config.get('jwtSecret');
-  return jwt.sign({ id, email, role, fullname }, sekret_Key, {
-    expiresIn: '3h',
-  });
-};
-
-//function to hash password
-const hashPassword = (password) => {
-  const salt = bcrypt.genSaltSync(10);
-  return bcrypt.hashSync(password, salt);
-};
+const userService = require('../service/user-service.js');
 
 class UserController {
   async registration(req, res, next) {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).json({
-          errors: errors.array(),
-          message: 'Not correct values while registration',
-        });
-      }
-      //check if user with this email exists
-      const { email, password, role, fullname } = req.body;
-      const candidateEmail = await User.findOne({
-        email: email,
-      });
-      const candidateFullName = await User.findOne({ fullname: fullname });
-      if (candidateEmail || candidateFullName) {
         return next(
-          ApiError.badRequest(
-            `${candidateEmail ? 'Email' : 'Full Name'} is allready exists`
+          ApiError.BadRequest(
+            'Not correct values while registration',
+            errors.array()
           )
         );
       }
-      //check if user want to be admin
-      if (role === 'admin' || role === 'ADMIN') {
-        return next(ApiError.badRequest('You can not be admin'));
-      }
-      //create user
-      const user = new User({
-        ...req.body,
-        password: hashPassword(password),
-        role: 'USER',
-      });
-      await user.save();
 
-      const token = generateJwt(user.id, user.email, user.role, user.fullname);
-      return res.json({ message: 'User created successfully', token });
+      const userData = await userService.registration(req.body);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.json(userData);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
+    }
+  }
+
+  //activate user by link
+  async activate(req, res, next) {
+    try {
+      const activationLink = req.params.link;
+      await userService.activate(activationLink);
+      return res.redirect(process.env.CLIENT_URL);
+    } catch (e) {
+      next(e);
     }
   }
 
   //login user and send cookies token
   async login(req, res, next) {
     try {
-      const errors = validationResult(req);
-
-      if (!errors.isEmpty()) {
-        return res.status(400).json({
-          errors: errors.array(),
-          message: 'Not correct values while logging in',
-        });
-      }
-      //check if user logined
-      if (req.cookies.token) {
-        return next(ApiError.badRequest('User is allready logged in'));
-      }
-
-      const { email, password } = req.body;
-      const user = await User.findOne({ email });
-      if (!user) {
-        return next(ApiError.NotFound('User not found'));
-      }
-      let comparePassword = bcrypt.compareSync(password, user.password);
-      if (!comparePassword) {
-        return next(ApiError.badRequest('Password is incorrect'));
-      }
-      const token = generateJwt(user.id, user.email, user.role, user.fullname);
-      //hide password and status isAdmin
-      const { password: _, __v, role, ...userData } = user.toObject();
-
-      //return token in cookie and user data in response
-      return res
-        .cookie('token', token, {
-          httpOnly: true,
-          maxAge: 1000 * 60 * 60 * 3,
-        })
-        .status(200)
-        .json({
-          message: 'User logged in successfully',
-          details: { ...userData },
-          role,
-        });
+      const userData = await userService.login(req.body);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.json(userData);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 
   //logout user
   async logout(req, res, next) {
     try {
-      //check if user is logged in
-      if (!req.cookies.token) {
-        return next(ApiError.Unauthorized());
-      }
-      //delete cookie
-      res.clearCookie('token');
-      return res.status(200).json({
-        message: 'User logged out successfully',
-      });
+      const { refreshToken } = req.cookies;
+      const token = await userService.logout(refreshToken);
+      res.clearCookie('refreshToken');
+      return res.json(token);
     } catch (e) {
-      return res.status(500).json(ApiError.internal());
+      next(e);
+    }
+  }
+
+  //refresh token
+  async refresh(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await userService.refresh(refreshToken);
+      res.cookie('refreshToken', userData.refreshToken, {
+        maxAge: 30 * 24 * 60 * 60 * 1000,
+        httpOnly: true,
+      });
+      return res.json(userData);
+    } catch (e) {
+      next(e);
     }
   }
 
   //get all users
   async getAllUsers(req, res, next) {
     try {
-      const users = await User.find();
-      //check if users is empty
-      if (users.length === 0) {
-        return next(ApiError.notFound('User not found'));
-      }
-      return res.status(200).json(users);
+      const users = await userService.getAllUsers();
+      return res.json(users);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 
@@ -142,13 +92,10 @@ class UserController {
   async getUserById(req, res, next) {
     try {
       const { id } = req.params;
-      const user = await User.findById(id);
-      if (!user) {
-        return next(ApiError.NotFound('User not found'));
-      }
-      return res.status(200).json(user);
+      const user = await userService.getUserById(id);
+      return res.json(user);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 
@@ -156,40 +103,10 @@ class UserController {
   async updateUser(req, res, next) {
     try {
       const { id } = req.params;
-      const { fullname, email, password } = req.body;
-      const user = await User.findById(id);
-      if (!user) {
-        return res.status(404).json({
-          message: 'User not found',
-        });
-      }
-      //check if user with this email exists
-      const userWithThisEmail = await User.findOne({ email });
-      if (userWithThisEmail && userWithThisEmail._id != id) {
-        return res.status(400).json({
-          message: 'User with this email already exists',
-        });
-      }
-      //check if user want to change email
-      if (email) {
-        user.email = email;
-      }
-      //check if user want to change password
-      if (password) {
-        const hashedPassword = hashPassword(password);
-        user.password = hashedPassword;
-      }
-      //check if user want to change fullname
-      if (fullname) {
-        user.fullname = fullname;
-      }
-      await user.save();
-      return res.status(200).json({
-        message: 'User updated successfully',
-        user,
-      });
+      const user = await userService.updateUser(id, req.body);
+      return res.json(user);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 
@@ -197,31 +114,20 @@ class UserController {
   async deleteUserById(req, res, next) {
     try {
       const { id } = req.params;
-      const user = await User.findByIdAndDelete(id);
-      if (!user) {
-        return res.status(404).json({
-          message: 'User not found',
-        });
-      }
-      return res.status(200).json({
-        message: 'User deleted successfully',
-        user,
-      });
+      const user = await userService.findByIdAndDelete(id);
+      return res.json(user);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 
   //delete all users
   async deleteAllUsers(req, res, next) {
     try {
-      const users = await User.deleteMany();
-      return res.status(200).json({
-        message: 'Users deleted successfully',
-        users,
-      });
+      const users = await userService.deleteAllUsers();
+      return res.json(users);
     } catch (e) {
-      return next(ApiError.internal(e.message));
+      next(e);
     }
   }
 }

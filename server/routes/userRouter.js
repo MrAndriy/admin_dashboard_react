@@ -7,15 +7,6 @@ const { check } = require('express-validator');
 const authMiddleware = require('../middleware/authMiddleware');
 const checkRole = require('../middleware/checkRoleMiddleware');
 
-/**
- *
- * caller function for global error handling
- * route all calls throught this to try and handle errors
- */
-const use = (fn) => {
-  Promise.resolve(fn(req, res, next)).catch(next);
-};
-
 //registration
 router.post(
   '/registration',
@@ -44,32 +35,43 @@ router.post(
   userController.login
 );
 
+//activate user
+router.get('/activate/:link', userController.activate);
+
 //logout
-router.get('/logout', userController.logout);
+router.post('/logout', userController.logout);
+
+//refresh token
+router.get('/refresh', userController.refresh);
 
 //get all users
-router.get('/',
-//  authMiddleware, checkRole('ADMIN'),
-  userController.getAllUsers);
+router.get('/', authMiddleware, checkRole('ADMIN'), userController.getAllUsers);
 
 //get user by id
-router.get('/find/:id',
-//  authMiddleware,
-  userController.getUserById);
+router.get(
+  '/find/:id',
+  authMiddleware,
+  checkRole('ADMIN'),
+  userController.getUserById
+);
 
 //update user by id
-router.put('/:id',
-//  authMiddleware,
-  userController.updateUser);
+router.put('/:id', authMiddleware, userController.updateUser);
 
 // //delete user by id
-router.delete('/:id',
-//  authMiddleware,
-  userController.deleteUserById);
+router.delete(
+  '/:id',
+  authMiddleware,
+  checkRole('ADMIN'),
+  userController.deleteUserById
+);
 
 // //delete all users
-router.delete('/',
-//  checkRole('ADMIN'),
-  userController.deleteAllUsers);
+router.delete(
+  '/',
+  authMiddleware,
+  checkRole('ADMIN'),
+  userController.deleteAllUsers
+);
 
 module.exports = router;

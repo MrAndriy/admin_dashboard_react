@@ -9,11 +9,11 @@ module.exports = function (role) {
     }
     try {
       //get cookie
-      const token = req.cookies.token;
+      const token = req.cookies.refreshToken;
       if (!token) {
         return next(ApiError.Unauthorized());
       }
-      const decoded = jwt.verify(token, config.get('jwtSecret'));
+      const decoded = jwt.verify(token, process.env.JWT_REFRESH_SECRET);
       if (decoded.role !== role) {
         return next(ApiError.forbidden());
       }
