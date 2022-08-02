@@ -26,12 +26,14 @@ router.put('/:id',
 //delete hotel by id
 router.delete(
   '/:id',
-  checkRoleMiddleware('ADMIN'),
+  // checkRoleMiddleware('ADMIN'),
   hotelController.deleteHotel
 );
 
 //delete all hotels
-router.delete('/', checkRoleMiddleware('ADMIN'), hotelController.deleteHotels);
+router.delete('/',
+//  checkRoleMiddleware('ADMIN'),
+  hotelController.deleteHotels);
 
 //count by city
 router.get('/countByCity', hotelController.countByCity);
