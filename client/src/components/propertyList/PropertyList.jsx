@@ -34,4 +34,4 @@ const PropertyList = () => {
 };
 
 export default PropertyList;
-//line 25 {data[i].type} and line 26 {data[i].count}
+//line 25 {data[i]?.type} and line 26 {data[i]?.count}
