@@ -10,6 +10,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"admin_dashboard_react": "file:..",
 		"bcryptjs": "^2.4.3",
 		"config": "^3.3.7",
 		"cookie-parser": "^1.4.6",
