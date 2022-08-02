@@ -1,8 +1,8 @@
 import useFetch from "../../hooks/useFetch";
-import "./featured.css"
+import "./featured.css";
+import axios from "axios";
 
 const Featured = () => {
-
   const {data, loading, error } = useFetch("/hotels/countByCity?cities=Lviv,Rivne,Kyiv")
   return (
     <div className="featured">
