@@ -22,7 +22,6 @@ function App() {
   const { darkMode } = useContext(DarkModeContext);
   const { token } = useContext(AuthContext);
 
-
   return (
     <div className={darkMode ? 'App dark' : 'App'}>
       <BrowserRouter>

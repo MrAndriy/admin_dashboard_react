@@ -10,7 +10,7 @@ const Login = () => {
     password: undefined,
   });
 
-  const { token, loading, error, dispatch } = useContext(AuthContext);
+  const { loading, error, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,6 @@ const Login = () => {
     dispatch({ type: 'LOGIN_START' });
     try {
       const res = await AuthServices.login(credentials);
-      console.log(res);
       if (res.data.user.role === 'ADMIN') {
         dispatch({
           type: 'LOGIN_SUCCESS',

@@ -13,7 +13,12 @@ const PORT = process.env.PORT || 3002;
 const app = express();
 app.use(express.json());
 app.use(cookieParser()); //cookie parser
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: process.env.ADMIN_URL,
+  })
+);
 app.use(express.static(path.resolve(__dirname, 'static')));
 app.use(fileUpload({}));
 
