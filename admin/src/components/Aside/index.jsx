@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { AuthContext } from '../../contex/AuthContext';
+import AuthServices from '../../services/AuthServices';
 import './aside.scss';
 
 // import logo from '../../images/logo.png';
 
 const Aside = () => {
-  const [state, setState] = useState('');
+  const { token, loading, error, dispatch } = useContext(AuthContext);
+
+  const logout = async () => {
+    try {
+      await AuthServices.logout();
+      dispatch({ type: 'LOGOUT' });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <aside>
       <div className="top">
@@ -42,7 +54,7 @@ const Aside = () => {
           <h3>Messages</h3>
           <span className="message-count">26</span>
         </NavLink>
-        <NavLink to={'/Logout'}>
+        <NavLink to={'/Logout'} onClick={logout}>
           <span className="material-icons-sharp">logout</span>
           <h3>Logout</h3>
         </NavLink>

@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { $host } from '../../http';
+import $api from '../../http';
 
 const Datatable = ({ columns }) => {
   const location = useLocation();
@@ -11,7 +11,7 @@ const Datatable = ({ columns }) => {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    $host
+    $api
       .get(path)
       .then((res) => {
         setList(res.data);

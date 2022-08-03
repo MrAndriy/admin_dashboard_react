@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import Chart from '../chart/Chart';
 import List from '../table/Table';
-import { $host } from '../../http';
+import $api from '../../http';
 
 const Single = () => {
   const location = useLocation();
@@ -12,7 +12,7 @@ const Single = () => {
   const [person, setPerson] = useState({});
 
   useEffect(() => {
-    $host.get(path).then((res) => {
+    $api.get(path).then((res) => {
       setPerson(res.data).catch((err) => console.log(err));
     });
   }, [location, path]);

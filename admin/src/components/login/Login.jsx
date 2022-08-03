@@ -1,7 +1,7 @@
-import axios from 'axios';
 import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contex/AuthContext';
+import AuthServices from '../../services/AuthServices';
 import './login.scss';
 
 const Login = () => {
@@ -10,7 +10,7 @@ const Login = () => {
     password: undefined,
   });
 
-  const { user, loading, error, dispatch } = useContext(AuthContext);
+  const { token, loading, error, dispatch } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -22,10 +22,14 @@ const Login = () => {
     e.preventDefault();
     dispatch({ type: 'LOGIN_START' });
     try {
-      const res = await axios.post('/user/login', credentials);
-      if (res.data.role === 'ADMIN') {
-        dispatch({ type: 'LOGIN_SUCCESS', payload: res.data.details });
-
+      const res = await AuthServices.login(credentials);
+      console.log(res);
+      if (res.data.user.role === 'ADMIN') {
+        dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: res.data.user,
+          token: res.data.accessToken,
+        });
         navigate('/');
       } else {
         dispatch({
@@ -36,7 +40,7 @@ const Login = () => {
     } catch (err) {
       dispatch({
         type: 'LOGIN_FAILURE',
-        payload: { message: err.response.data.errors[0].msg },
+        payload: { message: err.response.data.message },
       });
     }
   };
